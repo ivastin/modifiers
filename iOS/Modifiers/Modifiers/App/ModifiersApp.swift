@@ -11,7 +11,7 @@ import SwiftUI
 struct ModifiersApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ItemListView()
         }
     }
 }
