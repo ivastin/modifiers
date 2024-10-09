@@ -12,8 +12,12 @@ import Foundation
     private var details: ItemDetails?
     var isLoading = false
     var haveData = false
+    var title: String { details?.item.title ?? ""}
     var content: String {
-        details?.content ?? "loading"
+        details?.content ?? ""
+    }
+    var description: String {
+        details?.description ?? ""
     }
     var errorDescription: String?
     
@@ -21,7 +25,9 @@ import Foundation
         isLoading = true
         Task {
             do {
+                print("will fetch details")
                 try await details =  manager.fetchDetails(itemId: itemId)
+                print("details fetced")
                 isLoading = false
                 haveData = true
                 errorDescription = nil

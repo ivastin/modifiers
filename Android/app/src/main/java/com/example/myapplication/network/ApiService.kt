@@ -2,14 +2,17 @@ package com.example.myapplication.network
 
 import android.util.Log
 import com.example.myapplication.model.Item
+import com.example.myapplication.model.ItemDetails
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 
 //private const val BASE_URL = "http://192.168.100.65:8080/" // office
 //private const val BASE_URL = "http://192.168.1.48:8080/" // home
 private const val BASE_URL = "http://192.168.2.191:8080/" // home miw
+//private const val BASE_URL = "http://192.168.2.73:8080/" //new mac home miw
 
 
 //private const val BASE_URL = "http://localhost:8080/"
@@ -29,6 +32,11 @@ private val retrofit = Retrofit.Builder()
 interface ApiService {
     @GET("items/")
     suspend fun getItems(): List<Item>
+
+
+    @GET("details/{id}")
+    suspend fun getDetails(@Path ("id") id: String): ItemDetails
+
 }
 
 /**

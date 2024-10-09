@@ -28,7 +28,10 @@ fun MyApp() {
         }
         composable<Item> { backStackEntry ->
             val item: Item = backStackEntry.toRoute()
-            ItemDetails(item)
+            val vm: ItemDetailsViewModel = viewModel() {
+                ItemDetailsViewModel(item, ItemDetailsUiState.Loading)
+            }
+            ItemDetails(vm.itemState)
         }
     }
 }

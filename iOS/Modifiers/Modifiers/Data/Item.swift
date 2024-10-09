@@ -9,7 +9,6 @@ import Foundation
 
 struct Item: Codable, Identifiable, Hashable {
     let title: String
-    let description: String
     let id: String
     let type: String
 }
@@ -17,7 +16,6 @@ struct Item: Codable, Identifiable, Hashable {
 enum ItemType: String, Codable {
     case text
     case image
-    case url
     case unknown
 }
 
@@ -30,10 +28,19 @@ extension Item {
 struct ItemDetails: Codable {
     let item: Item
     let content: String
-    let loadingTime: Int = 0
+    let description: String
 }
 
 
 extension Item {
-    static let sample = Item(title: "Sample item", description: "description for sample item", id: "0", type: ItemType.text.rawValue)
+    static let sample = Item(title: "Sample item", id: "0", type: ItemType.text.rawValue)
 }
+
+
+// agenda
+//1. native - example
+//2. custom, modifiers struct + extension
+//3. withArrow()
+//4. details - Title
+//5. scroll
+//6. error?

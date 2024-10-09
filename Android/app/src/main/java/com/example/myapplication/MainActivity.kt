@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Surface(modifier = Modifier
-                .fillMaxHeight(0.5F)
+                .fillMaxHeight()
                 .background(Color.Black), color = MaterialTheme.colorScheme.background) {
                 MyApp()
             }

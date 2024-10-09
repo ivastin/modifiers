@@ -9,27 +9,33 @@ import SwiftUI
 
 struct ItemListView: View {
     @State private var viewModel = ViewModel()
+    @State private var navPath = NavigationPath()
+    
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navPath) {
             List {
                 ForEach(viewModel.items) { item in
-                    NavigationLink(item.title, value: item)
-                        .titleStyle()
+                    Button(item.title) {
+                        navPath.append(item)
+                    }
+                    .buttonAdjustments()
+                    .withArrow()
                 }
+                .listRowAdjustments()
             }
+            .listAdjustments()
+            
             .navigationDestination(for: Item.self) { item in
                 switch item.itemType {
                 case .text:
                     TextDetailsView(item: item)
                 case .image:
                     ImageDetailsView(item: item)
-                case .url:
-                    WebDetailsView(item: item)
                 case .unknown:
                     DetailView(item: item)
                 }
             }
-            .navigationBarTitle("List of Items")
+            .navigationBarTitle("Tasks")
         }
         .task {
             try? await viewModel.loadItems()

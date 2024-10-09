@@ -11,12 +11,14 @@ struct TextDetailsView: View {
     let item: Item
     let viewModel = DetailsViewModel()
     var body: some View {
-        VStack {
-            ItemView(item: item)
-            Text(viewModel.content)
-                .contentStyle()
-        }
-        .navigationBarTitle("Text for \(item.title)")
+            VStack {
+                Text(viewModel.title)
+                    .detailsTitle()
+                Text(viewModel.content)
+                Text(viewModel.description)
+            }
+            .scrollableDetails()
+        .navigationBarTitle("Task description")
         .onAppear() {
             viewModel.loadData(itemId: item.id)
         }

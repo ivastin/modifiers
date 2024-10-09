@@ -14,13 +14,6 @@ struct ItemView: View {
     var body: some View {
         VStack {
             Text(item.title)
-                .titleStyle()
-//            Text(item.description)
-//                .padding()
-//            Text(item.id)
-//                .padding()
-//            Text(item.type)
-//                .padding()
         }
     }
 }

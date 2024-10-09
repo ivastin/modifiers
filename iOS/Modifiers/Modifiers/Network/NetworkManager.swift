@@ -14,7 +14,7 @@ enum NetworkError: Error {
 }
 
 class NetworkManager {
-    let baseUrl = "http://127.0.0.1:8080/"
+    let baseUrl = "http://192.168.2.191:8080"
     func fetchItems() async throws -> [Item] {
         guard let url = URL(string: baseUrl + "/items") else {
             throw(NetworkError.general)
@@ -28,8 +28,19 @@ class NetworkManager {
         guard let url = URL(string: baseUrl + "/details/\(itemId)/") else {
             throw(NetworkError.general)
         }
-        let (data, _) = try await URLSession.shared.data(from: url)
+        print("loading from \(url.absoluteString)")
+        let (data, response) = try await URLSession.shared.data(from: url)
+        guard let code = (response as? HTTPURLResponse)?.statusCode else {
+            throw(NetworkError.general)
+        }
+        print("status: \(code)")
+        guard code >= 200 && code < 300 else {
+            throw(NetworkError.general)
+        }
+        
+        print("data \(data)")
         let item = try JSONDecoder().decode(ItemDetails.self, from: data)
+        print("item \(item)")
         return item
     }
 }

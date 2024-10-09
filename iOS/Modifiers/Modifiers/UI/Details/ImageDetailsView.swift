@@ -11,23 +11,25 @@ struct ImageDetailsView: View {
     let item: Item
     let viewModel = DetailsViewModel()
     var body: some View {
-        VStack {
-            ItemView(item: item)
-            
-            AsyncImage(url: URL(string: viewModel.content)) { image in
-                image.resizable()
-            } placeholder: {
-                Color.red
+            VStack {
+                Text(viewModel.title)
+                    .detailsTitle()
+                    .fixedSize(horizontal: false, vertical: true)
+                
+                AsyncImage(url: URL(string: viewModel.content)) { image in
+                    image.resizable()
+                } placeholder: {
+                    Color.gray.opacity(0.5)
+                }
+                .frame(width: 341, height: 185)
+                .clipShape(.rect(cornerRadius: 25))
+                
+                Text(viewModel.description)
+                    .fixedSize(horizontal: false, vertical: true)
             }
-            .frame(width: 128, height: 128)
-            .clipShape(.rect(cornerRadius: 25))
-            
-            Text("image:\(viewModel.content)")
-                .padding()
-               // .contentStyle()
-            
-        }
-            .navigationBarTitle("Image for \(item.title)")
+            .scrollableDetails()
+ 
+            .navigationBarTitle("Task description")
             .onAppear() {
                 viewModel.loadData(itemId: item.id)
             }
