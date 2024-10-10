@@ -26,9 +26,20 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.remember
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.sp
+import com.example.myapplication.R
 
 class ItemList {
 }
@@ -44,6 +55,8 @@ fun ItemList(state: ItemsUiState,
             state.items,
             onItemClick,
             modifier
+            //modifier.background(Color.LightGray.copy(alpha = 0.2f))
+            //modifier.background(Color.Blue)
         )
         is ItemsUiState.Error -> ErrorScreen(
             state.errorDescription,
@@ -83,46 +96,58 @@ fun ErrorScreen(errorDescription: String, modifier: Modifier = Modifier) {
  */
 @Composable
 fun ResultScreen(listItems: List<Item>, onItemClick: (Item) -> Unit, modifier: Modifier = Modifier) {
-    Column {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(1.dp),
+        modifier = modifier
+            .fillMaxWidth(fraction = 1.0f)
+            //.background(Color.Red)
+            //.background(Color.LightGray.copy(alpha = 0.2f)),
 
-        animationExample()
+    ) {
+        Text("Tasks",
+            fontSize = 24.sp,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp, start = 16.dp)
+        )
 
         listItems.forEach { item ->
-            Text(text = item.title, style = MaterialTheme.typography.titleLarge)
-            Text(text = item.description, style = MaterialTheme.typography.bodyMedium)
-            Button(onClick = { onItemClick(item)}){
-                Text("Go")
+            Box (
+                modifier = modifier
+                    .padding(top = 8.dp, bottom = 1.dp, start = 8.dp, end = 8.dp)
+                    //.clip(shape = RoundedCornerShape(16.dp))
+                    .background(Color.White)
+            )
+            {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.padding(start = 16.dp)
+
+                ) {
+                    Text(
+                        text = item.title,
+                        fontSize = 16.sp,
+                        lineHeight = 20.sp,
+                        modifier = modifier
+                            .fillMaxWidth(fraction = 0.8f)
+                            .background(Color.White)
+                    )
+                    TextButton(
+                        onClick = { onItemClick(item) },
+                        modifier = Modifier.size(width = 64.dp, height = 64.dp)
+                    ) {
+                        //Text("Go")
+                        Image(
+                            painter = painterResource(id = R.drawable.arrow_small_right),
+                            contentDescription = "arrow",
+                            contentScale = ContentScale.FillHeight,
+                        )
+                    }
+                }
             }
         }
     }
-}
-
-@Composable
-fun animationExample() {
-    var visible by remember { mutableSetOf(true) }
-    val density = LocalDensity.current
-    AnimatedVisibility(
-        visible = visible,
-        enter = slideInVertically {
-            // Slide in from 40 dp from the top.
-            with(density) { -40.dp.roundToPx() }
-        } + expandVertically (
-            // Expand from the top.
-            expandFrom = Alignment.Top
-        ) + fadeIn (
-            // Fade in with the initial alpha of 0.3f.
-            initialAlpha = 0.3f
-        ),
-        exit = slideOutVertically() + shrinkVertically() + fadeOut()
-    ) {
-        Text(
-            "Hello",
-            Modifier
-                .fillMaxWidth()
-                .height(200.dp)
-        )
-    }
-
 }
 
 @Preview(showBackground = true)

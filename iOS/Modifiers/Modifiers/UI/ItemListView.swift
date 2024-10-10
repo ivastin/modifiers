@@ -18,12 +18,22 @@ struct ItemListView: View {
                     Button(item.title) {
                         navPath.append(item)
                     }
-                    .buttonAdjustments()
-                    .withArrow()
+                    //.buttonStyle(.plain)
+                    //.font(.system(size: 16))
+                    //.lineSpacing(6)
+                    //.withArrow()
                 }
-                .listRowAdjustments()
+                //.listStyle(.plain)
+                //.listRowSeparator(.hidden)
+                //.padding(0)
+                //.listRowBackground(Color.clear)
+                //.listRowInsets(.init())
             }
-            .listAdjustments()
+            //.listStyle(.plain)
+            //.listRowSpacing(8.0)
+            //.padding(.top, 20)
+            //.padding(.horizontal, 16)
+            //.background(Color.gray.opacity(0.1))
             
             .navigationDestination(for: Item.self) { item in
                 switch item.itemType {
@@ -32,7 +42,7 @@ struct ItemListView: View {
                 case .image:
                     ImageDetailsView(item: item)
                 case .unknown:
-                    DetailView(item: item)
+                    TextDetailsView(item: item)
                 }
             }
             .navigationBarTitle("Tasks")

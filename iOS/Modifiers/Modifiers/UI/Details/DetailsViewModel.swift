@@ -20,7 +20,7 @@ import Foundation
         details?.description ?? ""
     }
     var errorDescription: String?
-    
+
     func loadData(itemId: String) {
         isLoading = true
         Task {
@@ -38,9 +38,5 @@ import Foundation
             }
         }
 
-    }
-    
-    func loadDetails(itemId: String) async throws {
-        details = try await manager.fetchDetails(itemId: itemId)
     }
 }

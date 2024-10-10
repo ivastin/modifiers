@@ -101,12 +101,77 @@ struct DetailsTitle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.system(size: 24, weight: .bold))
-            .lineSpacing(6)
+            .lineSpacing(2)
+            .padding(.bottom, 16)
     }
 }
 
 extension View {
     func detailsTitle() -> some View {
-        modifier(ButtonAdjustments())
+        modifier(DetailsTitle())
+    }
+}
+
+struct ErrorModifier: ViewModifier {
+    let title: String
+    let subtitle: String
+    let enabled: Bool
+    func body(content: Content) -> some View {
+        if !enabled {
+            content
+        } else {
+            ZStack(){
+                content
+                VStack() {
+                    Text(title)
+                        .font(.title)
+                        .foregroundStyle(.red)
+                        .padding(.bottom, 16)
+                    Text(subtitle)
+                        .font(.body)
+                        .foregroundStyle(.black)
+                }
+                .padding(.vertical, 24)
+                .padding(.horizontal, 24)
+                .frame(width: 280)
+                .background(Color.yellow)
+                .cornerRadius(16)
+            }
+        }
+
+    }
+}
+
+extension View {
+    func showError(title: String = "Something went wrong", text: String?) -> some View {
+        modifier(ErrorModifier(title: title, subtitle: text ?? "", enabled: text != nil))
+    }
+}
+
+
+struct DetailsNavigation: ViewModifier {
+    let title: String
+    @Environment(\.dismiss) var dismiss
+    func body(content: Content) -> some View {
+        content
+        .navigationBarTitle(title, displayMode: .inline)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button(action: {
+                    dismiss()
+                }) {
+                    //Label("Back", systemImage: "arrow.left.circle")
+                    Image(.back)
+                        .frame(width: 24, height: 24)
+                }
+            }
+        }
+    }
+}
+
+extension View {
+    func configureNavigation(title: String = "Task description") -> some View {
+        modifier(DetailsNavigation(title: title))
     }
 }

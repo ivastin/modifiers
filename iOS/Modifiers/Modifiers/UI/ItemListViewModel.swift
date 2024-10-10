@@ -7,13 +7,22 @@
 
 import Foundation
 
+import Foundation
+
 extension ItemListView {
     @Observable class ViewModel {
+        var errorDescription: String?
+        var isLoading = false
         var items = [Item]()
         private let manager = NetworkManager()
         func loadItems() async throws {
-            let items = try await manager.fetchItems()
-            self.items = items
+            do {
+                self.items = try await manager.fetchItems()
+            } catch {
+                errorDescription = "Something is wrong..:\(error.localizedDescription)"
+                print("error description = \(errorDescription)")
+                isLoading = false
+            }
         }
     }
 }

@@ -10,10 +10,11 @@ import SwiftUI
 struct ImageDetailsView: View {
     let item: Item
     let viewModel = DetailsViewModel()
+    @State private var animationAmount = 1.0
     var body: some View {
             VStack {
                 Text(viewModel.title)
-                    .detailsTitle()
+                    //.detailsTitle()
                     .fixedSize(horizontal: false, vertical: true)
                 
                 AsyncImage(url: URL(string: viewModel.content)) { image in
@@ -23,14 +24,18 @@ struct ImageDetailsView: View {
                 }
                 .frame(width: 341, height: 185)
                 .clipShape(.rect(cornerRadius: 25))
+                //.scaleEffect(animationAmount)
                 
                 Text(viewModel.description)
                     .fixedSize(horizontal: false, vertical: true)
             }
+            //.opacity(animationAmount)
+            .animation(.easeInOut(duration: 2), value: animationAmount)
             .scrollableDetails()
- 
-            .navigationBarTitle("Task description")
+//            .navigationBarTitle("Task description", displayMode: .inline)
+            .configureNavigation()
             .onAppear() {
+                animationAmount = 1.0
                 viewModel.loadData(itemId: item.id)
             }
     }

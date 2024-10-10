@@ -35,12 +35,24 @@ struct ItemDetails: Codable {
 extension Item {
     static let sample = Item(title: "Sample item", id: "0", type: ItemType.text.rawValue)
 }
+// TODO: agenda Android
+//1. Modifiers general, fillWidth, background
+//2. example padding, clip,
+//3. order -> reusableDetailModifier
+//4. best practice, chain, than
+//5. scroll
+//6. .clickable{ onItemClick(item) }
 
+//8. fillWidthOfParent
+//8. razočaranje, text => iOS
 
-// agenda
+// TODO: agenda ios
 //1. native - example
 //2. custom, modifiers struct + extension
-//3. withArrow()
-//4. details - Title
+//.listRowSeparator(.hidden) ne radi na listi nego na itemu, borba sa padinzima, swiftui def
+//3. withArrow(), plus na cijlu list
+//4. details - Title na image?, reuse
 //5. scroll
-//6. error?
+//6. navigacija
+//6. error sa parametrima
+//7. animacije na image details

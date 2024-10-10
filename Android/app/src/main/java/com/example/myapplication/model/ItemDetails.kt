@@ -5,6 +5,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ItemDetails (
     var item: Item,
-    var loadingTime: Int,
-    val content: String
+    val content: String,
+    val description: String
 )

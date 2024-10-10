@@ -33,9 +33,9 @@ extension Item {
     
     static func createDetails(itemId: String) -> ItemDetails? {
         guard let item = sample.filter({ $0.id == itemId }).first else { return nil }
-//        if let index = Int(itemId), index == sample.count {
-//            return nil
-//        }
+        if let index = Int(itemId), index == sample.count {
+            return nil
+        }
         switch item.id {
         case "1":
             return ItemDetails(item: item, content: Item.defContentString, description: Item.defContentString)

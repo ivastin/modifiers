@@ -10,6 +10,7 @@ import SwiftUI
 struct TextDetailsView: View {
     let item: Item
     let viewModel = DetailsViewModel()
+    @Environment(\.dismiss) var dismiss
     var body: some View {
             VStack {
                 Text(viewModel.title)
@@ -18,7 +19,18 @@ struct TextDetailsView: View {
                 Text(viewModel.description)
             }
             .scrollableDetails()
-        .navigationBarTitle("Task description")
+            //.showError(text: viewModel.errorDescription)
+            .navigationBarTitle("Task description", displayMode: .inline)
+//            .navigationBarBackButtonHidden(true)
+//            .toolbar {
+//                ToolbarItem(placement: .topBarLeading) {
+//                    Button(action: {
+//                        dismiss()
+//                    }) {
+//                        Label("Back", systemImage: "arrow.left.circle")
+//                    }
+//                }
+//            }
         .onAppear() {
             viewModel.loadData(itemId: item.id)
         }

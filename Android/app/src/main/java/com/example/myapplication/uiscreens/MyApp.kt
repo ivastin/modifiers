@@ -31,7 +31,12 @@ fun MyApp() {
             val vm: ItemDetailsViewModel = viewModel() {
                 ItemDetailsViewModel(item, ItemDetailsUiState.Loading)
             }
-            ItemDetails(vm.itemState)
+            if (item.type.equals("image")) {
+                ItemImageDetails(vm.itemState, goHomeScreen = { navController.navigate(route = StartList) })
+            } else {
+                ItemDetails(vm.itemState, goHomeScreen = { navController.navigate(route = StartList) })
+            }
+
         }
     }
 }
