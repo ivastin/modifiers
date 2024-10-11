@@ -66,7 +66,7 @@ fun ResultScreen(item: ItemDetails, goHomeScreen: () -> Unit, modifier: Modifier
         Text(text = item.content,
             style = MaterialTheme.typography.bodyLarge)
         Text(text = item.description,
-            style = MaterialTheme.typography.bodyLarge, modifier = Modifier.selectable(true))
+            style = MaterialTheme.typography.bodyLarge)
     }
 }
 
