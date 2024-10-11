@@ -132,6 +132,7 @@ fun ResultScreen(listItems: List<Item>, onItemClick: (Item) -> Unit, modifier: M
                         modifier = modifier
                             .fillMaxWidth(fraction = 0.8f)
                             .background(Color.White)
+                            //.clickable{onItemClick(item)}
                     )
                     TextButton(
                         onClick = { onItemClick(item) },
